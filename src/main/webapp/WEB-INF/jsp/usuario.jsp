@@ -21,7 +21,10 @@
 
 </head>
 <body>
-
+	<div class="alert alert-primary" style="text-align: center; ">
+		<h3>${mensaje}</h3>
+		<h3>${usuario.getNombres()} - ${usuario.getRol().getNombre()}</h3>
+	</div>
 	<div id="top">
 		<img src="http://localhost:8080/IMG/logoUDES.png" align="left"
 			id="img">
@@ -33,12 +36,12 @@
 				<li id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img
 						src="http://localhost:8080/IMG/inicio.png" align="left">
 				</a></li>
-				<li id="item"><a href="/usuario">Usuario<img
+				<li id="item"><a href="/usuario/${ usuario.getId()}">Usuario<img
 						src="http://localhost:8080/IMG/user.png" align="left">
 				</a></li>
-				<li id="item"><a href="/encuesta">Encuesta<img
+				<li id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
 						src="http://localhost:8080/IMG/encuesta.png" align="left"></a></li>
-				<li id="item"><a href="/reporte">Reporte<img
+				<li id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
 						src="http://localhost:8080/IMG/reporte.png" align="left"></a></li>
 			</ul>
 		</nav>
@@ -78,18 +81,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${usuarios}" var="usuario">
+					<c:forEach items="${usuarios}" var="usuarioTem">
 					    <tr>      
-					        <td>${usuario.getId()}</td>
-					        <td>${usuario.getNombres()}</td>
-					        <td>${usuario.getCodigo()}</td>
-					        <td>${usuario.getCreateAt()}</td>
-					        <td>${usuario.getEmail()}</td>
-					        <td>${usuario.getTelefono()}</td>  
-					        <td>${usuario.getUsername()}</td> 
-					        <td>${usuario.getPrograma().getNombre()}</td> 
-					        <td>${usuario.getRol().getNombre()}</td> 
-					        <td>${usuario.getSemestre().getNumero()}</td> 
+					        <td>${usuarioTem.getId()}</td>
+					        <td>${usuarioTem.getNombres()}</td>
+					        <td>${usuarioTem.getCodigo()}</td>
+					        <td>${usuarioTem.getCreateAt()}</td>
+					        <td>${usuarioTem.getEmail()}</td>
+					        <td>${usuarioTem.getTelefono()}</td>  
+					        <td>${usuarioTem.getUsername()}</td> 
+					        <td>${usuarioTem.getPrograma().getNombre()}</td> 
+					        <td>${usuarioTem.getRol().getNombre()}</td> 
+					        <td>${usuarioTem.getSemestre().getNumero()}</td> 
 					    </tr>
 					</c:forEach>
 				</tbody>

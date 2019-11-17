@@ -22,15 +22,14 @@ public class ViewController {
 		view.addAttribute("resultado", resultado);
 		return "index";
 	}
-	@GetMapping("/encuesta")
-	public String encuesta() {
+	@GetMapping("/encuesta/{id}")
+	public String encuesta(@PathVariable Long id) {
 		return "encuesta";
 	}
 	
 	@GetMapping("/inicio/{id}")
 	public String inicioGet(Model view, @PathVariable Long id) {
-		Usuario usuario = usuarioService.findById(id);
-		view.addAttribute("usuario", usuario);
+		view.addAttribute("usuario", loadUser(id));
 		return "inicio";
 	}
 	
@@ -50,13 +49,19 @@ public class ViewController {
 		view.addAttribute("usuario", usuarioLogueado);
 		return "inicio";
 	}
-	@GetMapping("/reporte")
-	public String reporte() {
+	@GetMapping("/reporte/{id}")
+	public String reporte(@PathVariable Long id) {
 		return "reporte";
 	}
-	@GetMapping("/usuario")
-	public String usuario(Model view) {
+	@GetMapping("/usuario/{id}")
+	public String usuario(Model view, @PathVariable Long id) {
+		view.addAttribute("usuario", loadUser(id));
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
+	}
+	
+	public Usuario loadUser(Long id) {
+		return usuarioService.findById(id);
+		
 	}
 }

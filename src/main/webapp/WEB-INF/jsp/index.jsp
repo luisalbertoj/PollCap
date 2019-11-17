@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="banner" style="text-align: center; color: white; padding: 0; background-color: transparent;">
-		<h1>!${mensaje}</h1>
+		<h1>${mensaje}</h1>
 	</div>
 
 	<form action="inicio" method="post">

@@ -20,11 +20,17 @@
         <div id="menu">   
             <nav class="nav">
             <ul>
-                <li id="item"><a href="inicio">Inicio<img src="http://localhost:8080/IMG/inicio.png" align="left"> </a></li>
-                <li id="item"><a href="usuario">Usuario<img src="http://localhost:8080/IMG/user.png" align="left"> </a></li>
-                <li id="item"><a href="encuesta">Encuesta<img src="http://localhost:8080/IMG/encuesta.png" align="left"></a></li>
-                <li id="item"><a href="reporte">Reporte<img src="http://localhost:8080/IMG/reporte.png" align="left"></a></li>
-            </ul>  
+				<li id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img
+						src="http://localhost:8080/IMG/inicio.png" align="left">
+				</a></li>
+				<li id="item"><a href="/usuario/${ usuario.getId()}">Usuario<img
+						src="http://localhost:8080/IMG/user.png" align="left">
+				</a></li>
+				<li id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
+						src="http://localhost:8080/IMG/encuesta.png" align="left"></a></li>
+				<li id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
+						src="http://localhost:8080/IMG/reporte.png" align="left"></a></li>
+			</ul>  
           </nav>
         </div>
             <div id="pie">
