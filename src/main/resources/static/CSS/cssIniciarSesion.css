@@ -1,0 +1,62 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+   background:  url(../IMG/fondo.jpg)no-repeat center center fixed ;
+ 
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+}
+#logoU{
+   margin: auto;
+   margin-left: 235px;
+}
+
+#cuadro{
+    width: 350px;
+    background: white;
+    margin:auto;
+    margin-top: 135px;
+    padding: 20px 20px 20px 20px;   
+
+}
+
+.entrada{
+    width: 345px;
+    height: 25px;
+    font-family: verdana;
+      border: 0;
+}
+#botonIniciar{
+    width: 350px;
+    height: 40px;
+    background: #28537E;
+    color: #ffffff;
+    font-size: 20px;
+    border: 0;
+    font-family: verdana;
+}
+
+
+#titulo{
+    font-size: 30px;
+    font-family: monospace;
+    color: #28537E;
+    margin-top: 1px;
+}   
+
+#usuario{
+   font-family: verdana;
+   font-size: 15px;
+}
+
+#contrasena{
+    font-family: verdana;
+    font-size: 15px;
+}
+
+	
