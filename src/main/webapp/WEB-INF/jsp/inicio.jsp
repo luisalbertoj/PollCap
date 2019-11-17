@@ -5,21 +5,31 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PollCap</title>  
-        <link href="./CSS/cssMenu.css" rel="stylesheet" type="text/css"/>
+        <link href="http://localhost:8080/CSS/cssMenu.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       
     </head>
     <body>
-        <form>
+    <div class="alert alert-primary" style="text-align: center; ">
+		<h3>${mensaje}</h3>
+		<h3>${usuario.getNombres()} - ${usuario.getRol().getNombre()}</h3>
+	</div>
+	<br>
+	<div class="container-fluid">
+		<div >
+		
+		<form>
         <div id="top"> 
-            <img src="./IMG/logoUDES.png" align="left" id="img"> <h1> PollCap </h1>
+            <img src="http://localhost:8080/IMG/logoUDES.png" align="left" id="img"> <h1> PollCap </h1>
         </div>
         <div id="menu">   
             <nav class="nav">
             <ul>
-                <li id="item"><a href="/inicio">Inicio<img src="./IMG/inicio.png" align="left"> </a></li>
-                <li id="item"><a href="/usuario">Usuario<img src="./IMG/user.png" align="left"> </a></li>
-                <li id="item"><a href="/encuesta">Encuesta<img src="./IMG/encuesta.png" align="left"></a></li>
-                <li id="item"><a href="/reporte">Reporte<img src="./IMG/reporte.png" align="left"></a></li>
+                <li id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img src="http://localhost:8080/IMG/inicio.png" align="left"> </a></li>
+                <li id="item"><a href="/usuario">Usuario<img src="http://localhost:8080/IMG/user.png" align="left"> </a></li>
+                <li id="item"><a href="/encuesta">Encuesta<img src="http://localhost:8080/IMG/encuesta.png" align="left"></a></li>
+                <li id="item"><a href="/reporte">Reporte<img src="http://localhost:8080/IMG/reporte.png" align="left"></a></li>
             </ul>  
           </nav>
         </div>
@@ -27,13 +37,13 @@
                <div class="slider">
 			<ul>
                             <li>
-                                <img src="./IMG/bailoterapia.jpg" alt="">
+                                <img class="d-block w-100" src="http://localhost:8080/IMG/bailoterapia.jpg" alt="">
                             </li>
                                                               <li>
-                                <img src="./IMG/natacion.jpg" alt="">
+                                <img class="d-block w-100" src="http://localhost:8080/IMG/natacion.jpg" alt="">
                               </li>
                                                               <li>
-                                <img src="./IMG/yoga.jpg" alt="">
+                                <img class="d-block w-100" src="http://localhost:8080/IMG/yoga.jpg" alt="">
                               </li>
 			
 			</ul>
@@ -44,5 +54,9 @@
                 <h5> UNIVERSIDAD DE SANTANDER </h5>
             </div>
         </form>
+        
+		</div>
+	</div>
+        
     </body>
 </html>

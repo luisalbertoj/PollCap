@@ -10,20 +10,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PollCap</title>
-        <link href="./CSS/cssEncuesta.css" rel="stylesheet" type="text/css"/>
+        <link href="http://localhost:8080/CSS/cssEncuesta.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <form>
         <div id="top"> 
-            <img src="./IMG/logoUDES.png" align="left" id="img"> <h1> PollCap </h1>
+            <img src="http://localhost:8080/IMG/logoUDES.png" align="left" id="img"> <h1> PollCap </h1>
         </div>
         <div id="menu">   
             <nav class="nav">
             <ul>
-                <li id="item"><a href="inicio.jsp">Inicio<img src="./IMG/inicio.png" align="left"> </a></li>
-                <li id="item"><a href="usuario.jsp">Usuario<img src="./IMG/user.png" align="left"> </a></li>
-                <li id="item"><a href="encuesta.jsp">Encuesta<img src="./IMG/encuesta.png" align="left"></a></li>
-                <li id="item"><a href="reporte.jsp">Reporte<img src="./IMG/reporte.png" align="left"></a></li>
+                <li id="item"><a href="inicio">Inicio<img src="http://localhost:8080/IMG/inicio.png" align="left"> </a></li>
+                <li id="item"><a href="usuario">Usuario<img src="http://localhost:8080/IMG/user.png" align="left"> </a></li>
+                <li id="item"><a href="encuesta">Encuesta<img src="http://localhost:8080/IMG/encuesta.png" align="left"></a></li>
+                <li id="item"><a href="reporte">Reporte<img src="http://localhost:8080/IMG/reporte.png" align="left"></a></li>
             </ul>  
           </nav>
         </div>
