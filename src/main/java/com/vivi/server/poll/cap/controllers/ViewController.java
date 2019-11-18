@@ -23,58 +23,61 @@ import com.vivi.server.poll.cap.util.Excel;
 
 @Controller
 public class ViewController {
-	
+
 	@Autowired
 	private IUsuarioService usuarioService;
-	
+
 	@GetMapping("/")
 	public String index(Model view) {
 		String resultado = "luis";
 		view.addAttribute("resultado", resultado);
 		return "index";
 	}
+
 	@GetMapping("/encuesta/{id}")
 	public String encuesta(@PathVariable Long id) {
 		return "encuesta";
 	}
-	
+
 	@GetMapping("/inicio/{id}")
 	public String inicioGet(Model view, @PathVariable Long id) {
 		view.addAttribute("usuario", loadUser(id));
 		return "inicio";
 	}
-	
+
 	@PostMapping("/inicio")
 	public String inicio(Model view, Usuario usuario) {
-		if(usuario.getUsername().isEmpty() || usuario.getPassword().isEmpty()) {
+		if (usuario.getUsername().isEmpty() || usuario.getPassword().isEmpty()) {
 			view.addAttribute("mensaje", "Los campos no pueden estar vacios");
 			return "index";
 		}
-		
+
 		Usuario usuarioLogueado = usuarioService.login(usuario);
-		
-		if(usuarioLogueado == null) {
+
+		if (usuarioLogueado == null) {
 			view.addAttribute("mensaje", "Usuario o contraseña incorrectos");
 			return "index";
 		}
 		view.addAttribute("usuario", usuarioLogueado);
 		return "inicio";
 	}
+
 	@GetMapping("/reporte/{id}")
 	public String reporte(@PathVariable Long id) {
 		return "reporte";
 	}
+
 	@GetMapping("/usuario/{id}")
 	public String usuario(Model view, @PathVariable Long id) {
 		view.addAttribute("usuario", loadUser(id));
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
 	}
-	
+
 	@PostMapping("/usuario/{id}")
 	public String uploadUsuarios(Model view, @PathVariable Long id, @RequestParam("archivo") MultipartFile archivo) {
-		
-		if(!archivo.isEmpty()) {
+
+		if (!archivo.isEmpty()) {
 			String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
 			Path rutaArchivo = Paths.get("multimedia").resolve(nombreArchivo).toAbsolutePath();
 			try {
@@ -84,35 +87,40 @@ public class ViewController {
 			}
 			ArrayList<String[]> usuarios = null;
 			try {
-				usuarios =  Excel.readExcelFileToArray(new File("multimedia/" + nombreArchivo));
+				usuarios = Excel.readExcelFileToArray(new File("multimedia/" + nombreArchivo));
 			} catch (Exception e) {
 				view.addAttribute("mensaje", "ALgo ha salido mal al interpretar el excel");
 			}
-			if(usuarios != null) {
+			if (usuarios != null) {
 				int r = 0;
-		        for (String[] next : usuarios) {
-		        	Usuario usuarionuevo = new Usuario();
-		            System.out.print("Array Row: " + r++ + " -> ");
-		            if(next[0] != null) {
-		            	usuarionuevo.setId(Long.parseLong(next[0]));
-		            }
-		            for (int c = 0; c < next.length; c++) {
-		            	
-		                System.out.print("[Column " + c + ": " + next[c] + "] ");
-		                
-		            }
-		            System.out.println();
-		        }
+				for (String[] next : usuarios) {
+					Usuario usuarionuevo = new Usuario();
+					try {
+						if (next[0] != null) {
+							usuarionuevo.setId(Long.parseLong(next[0]));
+						}
+						usuarionuevo.setCodigo(next[1]);
+						usuarionuevo.setEmail(next[2]);
+						usuarionuevo.setNombres(next[3]);
+						usuarionuevo.setPassword(next[4]);
+						usuarionuevo.setTelefono(next[5]);
+						usuarionuevo.setUsername(next[6]);
+						usuarioService.save(usuarionuevo);
+					} catch (Exception e) {
+						view.addAttribute("mensaje", "El elemento llamado: " + next[3]
+								+ " no se pudo registrar revise que los datos sean correctos");
+					}
+				}
 			}
-			
+
 		}
 		view.addAttribute("usuario", loadUser(id));
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
 	}
-	
+
 	public Usuario loadUser(Long id) {
 		return usuarioService.findById(id);
-		
+
 	}
 }

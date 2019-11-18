@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PollCap</title>  
-        <link href="http://localhost:8080/CSS/cssMenu.css" rel="stylesheet" type="text/css"/>
+        <link href="http://localhost:8089/CSS/cssMenu.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       
@@ -21,35 +21,35 @@
 		
 		<form>
         <div id="top"> 
-            <img src="http://localhost:8080/IMG/logoUDES.png" align="left" id="img"> <h1> PollCap </h1>
+            <img src="http://localhost:8089/IMG/logoUDES.png" align="left" id="img"> <h1> PollCap </h1>
         </div>
         <div id="menu">   
             <nav class="nav">
-            <ul>
+             <ul>
 				<li id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img
-						src="http://localhost:8080/IMG/inicio.png" align="left">
+						src="http://localhost:8089/IMG/inicio.png" align="left">
 				</a></li>
 				<li id="item"><a href="/usuario/${ usuario.getId()}">Usuario<img
-						src="http://localhost:8080/IMG/user.png" align="left">
+						src="http://localhost:8089/IMG/user.png" align="left">
 				</a></li>
 				<li id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
-						src="http://localhost:8080/IMG/encuesta.png" align="left"></a></li>
+						src="http://localhost:8089/IMG/encuesta.png" align="left"></a></li>
 				<li id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
-						src="http://localhost:8080/IMG/reporte.png" align="left"></a></li>
-			</ul>  
+						src="http://localhost:8089/IMG/reporte.png" align="left"></a></li>
+			</ul>    
           </nav>
         </div>
            <div class="carrusel">
                <div class="slider">
 			<ul>
                             <li>
-                                <img class="d-block w-100" src="http://localhost:8080/IMG/bailoterapia.jpg" alt="">
+                                <img class="d-block w-100" src="http://localhost:8089/IMG/bailoterapia.jpg" alt="">
                             </li>
                                                               <li>
-                                <img class="d-block w-100" src="http://localhost:8080/IMG/natacion.jpg" alt="">
+                                <img class="d-block w-100" src="http://localhost:8089/IMG/natacion.jpg" alt="">
                               </li>
                                                               <li>
-                                <img class="d-block w-100" src="http://localhost:8080/IMG/yoga.jpg" alt="">
+                                <img class="d-block w-100" src="http://localhost:8089/IMG/yoga.jpg" alt="">
                               </li>
 			
 			</ul>

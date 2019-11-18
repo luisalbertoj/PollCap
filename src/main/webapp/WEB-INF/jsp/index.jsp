@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>PollCap</title>
-<link href="http://localhost:8080/CSS/cssIniciarSesion.css" rel="stylesheet" type="text/css" />
+<link href="http://localhost:8089/CSS/cssIniciarSesion.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
@@ -25,7 +25,7 @@
 
 
 			<p id="titulo">
-				<img src="http://localhost:8080/IMG/logoEncuesta.png" align="left"> PollCap
+				<img src="http://localhost:8089/IMG/logoEncuesta.png" align="left"> PollCap
 			</p>
 
 			</br>
@@ -37,7 +37,7 @@
 				class="entrada" name="password" required="required">
 			<hr>
 			</br> <input type="submit" value="Iniciar sesión" id="botonIniciar" /> <br />
-			<br /> <img src="http://localhost:8080/IMG/LogoUniversidad.png" id="logoU">
+			<br /> <img src="http://localhost:8089/IMG/LogoUniversidad.png" id="logoU">
 		</div>
 
 	</form>
