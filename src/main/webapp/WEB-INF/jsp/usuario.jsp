@@ -49,11 +49,12 @@
 	<br>
 	<div class="container-fluid">
 		<div class="container">
-			<form>
+			<form action="../usuario/${ usuario.getId() }" method="post" enctype="multipart/form-data">
 				<div class="form-group">
-					<label for="exampleFormControlFile1">Carga de Estudiantes</label> <input
+					<label for="exampleFormControlFile1">Carga de Estudiantes</label> 
+					<input
 						type="file" class="form-control-file" id="exampleFormControlFile1"
-						name="estudiantes">
+						name="archivo" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
 				</div>
 				<button type="submit" class="btn btn-primary">Cargar</button>
 			</form>

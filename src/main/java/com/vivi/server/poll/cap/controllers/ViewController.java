@@ -1,14 +1,25 @@
 package com.vivi.server.poll.cap.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.vivi.server.poll.cap.models.entity.Usuario;
 import com.vivi.server.poll.cap.models.services.IUsuarioService;
+import com.vivi.server.poll.cap.util.Excel;
 
 @Controller
 public class ViewController {
@@ -55,6 +66,42 @@ public class ViewController {
 	}
 	@GetMapping("/usuario/{id}")
 	public String usuario(Model view, @PathVariable Long id) {
+		view.addAttribute("usuario", loadUser(id));
+		view.addAttribute("usuarios", usuarioService.findAll());
+		return "usuario";
+	}
+	
+	@PostMapping("/usuario/{id}")
+	public String uploadUsuarios(Model view, @PathVariable Long id, @RequestParam("archivo") MultipartFile archivo) {
+		
+		if(!archivo.isEmpty()) {
+			String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
+			Path rutaArchivo = Paths.get("multimedia").resolve(nombreArchivo).toAbsolutePath();
+			try {
+				Files.copy(archivo.getInputStream(), rutaArchivo);
+			} catch (IOException e) {
+				view.addAttribute("mensaje", "Error al cargar el arhcio");
+			}
+			ArrayList<String[]> usuarios = null;
+			try {
+				usuarios =  Excel.readExcelFileToArray(new File("multimedia/" + nombreArchivo));
+			} catch (Exception e) {
+				view.addAttribute("mensaje", "ALgo ha salido mal al interpretar el excel");
+			}
+			if(usuarios != null) {
+				int r = 0;
+		        for (String[] next : usuarios) {
+		        	Usuario usuarionuevo = new Usuario();
+		            System.out.print("Array Row: " + r++ + " -> ");
+		            for (int c = 0; c < next.length; c++) {
+		                System.out.print("[Column " + c + ": " + next[c] + "] ");
+		                
+		            }
+		            System.out.println();
+		        }
+			}
+			
+		}
 		view.addAttribute("usuario", loadUser(id));
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
