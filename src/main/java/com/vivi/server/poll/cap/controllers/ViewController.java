@@ -38,7 +38,8 @@ public class ViewController {
 	}
 
 	@GetMapping("/encuesta/{id}")
-	public String encuesta(@PathVariable Long id) {
+	public String encuesta(Model view,@PathVariable Long id) {
+		view.addAttribute("usuario", loadUser(id));
 		return "encuesta";
 	}
 
@@ -66,7 +67,8 @@ public class ViewController {
 	}
 
 	@GetMapping("/reporte/{id}")
-	public String reporte(@PathVariable Long id) {
+	public String reporte(Model view, @PathVariable Long id) {
+		view.addAttribute("usuario", loadUser(id));
 		return "reporte";
 	}
 
