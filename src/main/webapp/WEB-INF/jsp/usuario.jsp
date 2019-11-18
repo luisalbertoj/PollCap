@@ -41,7 +41,7 @@
 				</a></li>
 				<li style="color: white; display: ${ menuEncuesta }" id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
 						src="http://localhost:8089/IMG/encuesta.png" align="left"></a></li>
-				<li style="color: white; display: ${ menuReporte }" id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
+				<li style="color: white; display: ${ menuReporte }" id="item"><a href="/reporte/${ usuario.getId()}/1">Reporte<img
 						src="http://localhost:8089/IMG/reporte.png" align="left"></a></li>
 				<li style="color: white;" id="item"><a href="http://localhost:8089/">Salir<img
 						align="left"></a></li>

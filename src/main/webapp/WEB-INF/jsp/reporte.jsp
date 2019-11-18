@@ -57,7 +57,7 @@
 								href="/encuesta/${ usuario.getId()}">Encuesta<img
 									src="http://localhost:8089/IMG/encuesta.png" align="left"></a></li>
 							<li style="color: white; display: ${ menuReporte }" id="item"><a
-								href="/reporte/${ usuario.getId()}">Reporte<img
+								href="/reporte/${ usuario.getId()}/1">Reporte<img
 									src="http://localhost:8089/IMG/reporte.png" align="left"></a></li>
 							<li style="color: white;" id="item"><a
 								href="http://localhost:8089/">Salir<img align="left"></a></li>
@@ -96,10 +96,10 @@
 										<li class="barras" data-value="100">De_acuerdo</li>
 									</span>
 									<span class="barra-fondo">
-										<li class="barras" data-value="2${ loop.index }">Indiferente</li>
+										<li class="barras" data-value="30">Indiferente</li>
 									</span>
 									<span class="barra-fondo">
-										<li class="barras" data-value="5${ loop.index }">Desacuerdo</li>
+										<li class="barras" data-value="25">Desacuerdo</li>
 									</span>
 
 								</ul>
@@ -117,8 +117,8 @@
 							</div>
 								<h4 id="pregunta">PREGUNTA: ${ preguntaTem.getContenido() }</h4>
 								<h6 id="pregunta">De acuerdo: ${ cantidadRespuestasDeacuerdo }</h6>
-								<h6 id="pregunta">Indiferente: ${ cantidadRespuestasDesacuerdo  }</h6>
-								<h6 id="pregunta">Desacuerdo: ${ cantidadRespuestasIndiferente  }</h6>
+								<h6 id="pregunta">Indiferente: ${ cantidadRespuestasIndiferente  }</h6>
+								<h6 id="pregunta">Desacuerdo: ${ cantidadRespuestasDesacuerdo  }</h6>
 								
 								<h5 id="total">TOTAL: ${ respuestas.get(loop1.index).size() }</h5>
 							</div>
