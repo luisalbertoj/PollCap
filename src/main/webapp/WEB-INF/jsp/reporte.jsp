@@ -109,7 +109,8 @@
 								<h6 id="pregunta">De acuerdo:</h6>
 								<h6 id="pregunta">Indiferente:</h6>
 								<h6 id="pregunta">Desacuerdo:</h6>
-
+								
+								<h5 id="total">TOTAL: ${ respuestas.size() }</h5>
 								<h5 id="total">TOTAL: ${ respuestas.get(loop.index).size() }</h5>
 							</div>
 						</div>

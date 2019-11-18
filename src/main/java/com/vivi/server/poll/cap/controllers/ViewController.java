@@ -211,10 +211,12 @@ public class ViewController {
 		ArrayList<ArrayList<Respuesta>> respuestasDeSeleccion = new ArrayList<ArrayList<Respuesta>>();
 		ArrayList<Respuesta> respuestasTemporal = new ArrayList<Respuesta>();
 		for(Respuesta respuestaTem: respuestas) {
+			respuestasTemporal = new ArrayList<Respuesta>();
 			for(Pregunta preguntaTem: preguntasDeSeleccion) {
 				if(respuestaTem.getPregunta().getId().equals(preguntaTem.getId())) {
 					System.out.println("id pregunta "+ preguntaTem.getId());
-					System.out.println("id respuesta "+ respuestaTem.getPregunta().getId());
+					System.out.println("id respuesta "+ respuestaTem.getId());
+					System.out.println("id respuesta y id pregunta "+ respuestaTem.getPregunta().getId());
 					respuestasTemporal.add(respuestaTem);
 				}
 			}
