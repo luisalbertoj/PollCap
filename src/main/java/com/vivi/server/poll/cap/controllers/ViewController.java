@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +20,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vivi.server.poll.cap.models.entity.Encuesta;
+import com.vivi.server.poll.cap.models.entity.Contenido;
+import com.vivi.server.poll.cap.models.entity.Pregunta;
 import com.vivi.server.poll.cap.models.entity.Programa;
+import com.vivi.server.poll.cap.models.entity.Respuesta;
 import com.vivi.server.poll.cap.models.entity.Rol;
 import com.vivi.server.poll.cap.models.entity.Semestre;
 import com.vivi.server.poll.cap.models.entity.Usuario;
+import com.vivi.server.poll.cap.models.services.IEncuestaService;
+import com.vivi.server.poll.cap.models.services.IPreguntaService;
+import com.vivi.server.poll.cap.models.services.IRespuestaService;
 import com.vivi.server.poll.cap.models.services.IUsuarioService;
 import com.vivi.server.poll.cap.util.Excel;
 
@@ -29,6 +39,12 @@ public class ViewController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
+	@Autowired
+	private IEncuestaService encuestaService;
+	@Autowired
+	private IPreguntaService preguntaService;
+	@Autowired
+	private IRespuestaService respuestaService;
 
 	@GetMapping("/")
 	public String index(Model view) {
@@ -40,9 +56,94 @@ public class ViewController {
 	@GetMapping("/encuesta/{id}")
 	public String encuesta(Model view,@PathVariable Long id) {
 		view.addAttribute("usuario", loadUser(id));
+		List<Encuesta> encuestas = encuestaService.findAll();
+		ArrayList<Encuesta> encuestasDelUsuario = new ArrayList<Encuesta>();
+		for(Encuesta encuestaTem: encuestas) {
+			if(encuestaTem.getUsuario().getId().equals(id)) encuestasDelUsuario.add(encuestaTem);
+		}
+		view.addAttribute("encuestas", encuestasDelUsuario);
+		System.out.println(encuestasDelUsuario);
+		view.addAttribute("servicioSeleccionado", "none");
+		view.addAttribute("servicioSeleccionado", "none");
 		return "encuesta";
 	}
-
+	
+	@GetMapping("/encuesta/{id}/{id_encuesta}")
+	public String encuestaLlenar(Model view,@PathVariable Long id, @PathVariable Long id_encuesta) {
+		view.addAttribute("usuario", loadUser(id));
+		List<Encuesta> encuestas = encuestaService.findAll();
+		ArrayList<Encuesta> encuestasDelUsuario = new ArrayList<Encuesta>();
+		for(Encuesta encuestaTem: encuestas) {
+			if(encuestaTem.getUsuario().getId().equals(id)) encuestasDelUsuario.add(encuestaTem);
+		}
+		
+		List<Pregunta> preguntas = preguntaService.findAll();
+		ArrayList<Pregunta> preguntasDelUsuario = new ArrayList<Pregunta>();
+		for(Pregunta preguntaTem: preguntas) {
+			if(preguntaTem.getEncuesta().getId().equals(id_encuesta)) preguntasDelUsuario.add(preguntaTem);
+		}
+		System.out.println(preguntasDelUsuario);
+		view.addAttribute("encuestaSeleccionada", id_encuesta );
+		view.addAttribute("preguntaNum", 0);
+		view.addAttribute("preguntas", preguntasDelUsuario);
+		view.addAttribute("encuestas", encuestasDelUsuario);
+		view.addAttribute("servicioSeleccionado", "block");
+		
+		return "encuesta";
+	}
+	
+	@PostMapping("/encuesta/{id}/{id_encuesta}/{num_pregunta}")
+	public String encuestaGuardar(Model view,@PathVariable Long id,@PathVariable int num_pregunta, @PathVariable Long id_encuesta,Contenido formModel) {
+		view.addAttribute("usuario", loadUser(id));
+		List<Encuesta> encuestas = encuestaService.findAll();
+		ArrayList<Encuesta> encuestasDelUsuario = new ArrayList<Encuesta>();
+		for(Encuesta encuestaTem: encuestas) {
+			if(encuestaTem.getUsuario().getId().equals(id)) encuestasDelUsuario.add(encuestaTem);
+		}
+		
+		List<Pregunta> preguntas = preguntaService.findAll();
+		ArrayList<Pregunta> preguntasDelUsuario = new ArrayList<Pregunta>();
+		for(Pregunta preguntaTem: preguntas) {
+			if(preguntaTem.getEncuesta().getId().equals(id_encuesta)) preguntasDelUsuario.add(preguntaTem);
+		}
+		Respuesta respuesta = new Respuesta();
+		Contenido contenido = new Contenido();
+		Pregunta pregunta = new Pregunta();
+		if(formModel.getDeacuerdo() != null) {
+			pregunta.setId(Long.parseLong(formModel.getDeacuerdo()));
+			contenido.setId(Long.parseLong("1"));
+			respuesta.setContenido(contenido);
+		}
+		if(formModel.getDesacuerdo() != null) {
+			pregunta.setId(Long.parseLong(formModel.getDesacuerdo()));
+			contenido.setId(Long.parseLong("2"));
+			respuesta.setContenido(contenido);
+		}
+		if(formModel.getIndiferente() != null) {
+			pregunta.setId(Long.parseLong(formModel.getIndiferente()));
+			contenido.setId(Long.parseLong("3"));
+			respuesta.setContenido(contenido);
+		}
+		respuesta.setPregunta(pregunta);		
+		try {
+			respuestaService.save(respuesta);
+		} catch (Exception e) {
+			view.addAttribute("mensaje2", "- !Esta encuesta ya ha sido respondida Selecciona otra encuesta");
+		}
+		
+		num_pregunta ++;
+		view.addAttribute("encuestaSeleccionada", id_encuesta );
+		view.addAttribute("preguntas", preguntasDelUsuario);
+		view.addAttribute("preguntaNum", num_pregunta);
+		view.addAttribute("encuestas", encuestasDelUsuario);
+		view.addAttribute("mensajeGuardado", "block");
+		view.addAttribute("mensaje", "Respuestas Guardadas");
+		if(preguntasDelUsuario.size() == (num_pregunta)) {
+			view.addAttribute("preguntaNum", 0);
+			view.addAttribute("servicioSeleccionado", "none");
+		}	
+		return "encuesta";
+	}
 	@GetMapping("/inicio/{id}")
 	public String inicioGet(Model view, @PathVariable Long id) {
 		view.addAttribute("usuario", loadUser(id));

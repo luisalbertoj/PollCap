@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2019 a las 20:11:39
+-- Tiempo de generación: 18-11-2019 a las 08:25:01
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -21,6 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pollcap`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenido`
+--
+
+CREATE TABLE `contenido` (
+  `id` bigint(20) NOT NULL,
+  `deacuerdo` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `desacuerdo` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `indiferente` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `contenido`
+--
+
+INSERT INTO `contenido` (`id`, `deacuerdo`, `desacuerdo`, `indiferente`) VALUES
+(1, 'deacuerdo', NULL, NULL),
+(2, NULL, 'desacuerdo', NULL),
+(3, NULL, NULL, 'indiferente');
 
 -- --------------------------------------------------------
 
@@ -45,7 +67,9 @@ INSERT INTO `encuestas` (`id`, `create_at`, `update_at`, `id_servicio_bienestar`
 (2, '2019-11-16', '2019-11-16 00:00:00.000000', 4, 5),
 (3, '2019-11-16', '2019-11-01 00:00:00.000000', 4, 5),
 (4, '2019-11-16', '2019-11-02 00:00:00.000000', 2, 3),
-(5, '2019-11-16', '2019-11-25 00:00:00.000000', 2, 4);
+(5, '2019-11-16', '2019-11-25 00:00:00.000000', 2, 4),
+(6, '2019-11-01', '2019-11-17 00:00:00.000000', 1, 9),
+(7, '2019-11-02', '2019-11-21 00:00:00.000000', 2, 9);
 
 -- --------------------------------------------------------
 
@@ -70,7 +94,12 @@ INSERT INTO `preguntas` (`id`, `contenido`, `create_at`, `update_at`, `id_encues
 (7, 'Los recursos utilizados son apropiados', '2019-11-16', NULL, 4),
 (8, 'Existe orden lógico en el proceso de enseñanza', '2019-11-16', NULL, 1),
 (9, 'Recomendaría el bienestar de natación', '2019-11-16', NULL, 1),
-(10, 'El bienestar le ayuda en su vida personal, profesional o laboral', '2019-11-16', NULL, 2);
+(10, 'El bienestar le ayuda en su vida personal, profesional o laboral', '2019-11-16', NULL, 2),
+(11, 'El clima institucional es agradable', '2019-11-16', NULL, 1),
+(12, 'Las técnicas presentadas por el docente ayudan en el proceso de aprendizaje', '2019-11-16', NULL, 1),
+(13, 'Las reglas del bienestar son claras desde el principio y se hacen cumplir por el docente', '2019-11-18', NULL, 1),
+(14, 'El tiempo de duración del bienestar es suficiente para cumplir los objetivos', '2019-11-16', NULL, 1),
+(15, 'El bienestar cumplió con sus expectativas', '2019-11-16', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -104,22 +133,11 @@ INSERT INTO `programas` (`id`, `create_at`, `nombre`, `update_at`) VALUES
 
 CREATE TABLE `respuestas` (
   `id` bigint(20) NOT NULL,
-  `contenido` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `create_at` date DEFAULT NULL,
   `update_at` datetime(6) DEFAULT NULL,
+  `id_contenido` bigint(20) DEFAULT NULL,
   `id_pregunta` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `respuestas`
---
-
-INSERT INTO `respuestas` (`id`, `contenido`, `create_at`, `update_at`, `id_pregunta`) VALUES
-(1, NULL, NULL, NULL, 10),
-(2, NULL, NULL, NULL, 7),
-(3, NULL, NULL, NULL, 9),
-(4, NULL, NULL, NULL, 8),
-(5, NULL, NULL, NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -224,12 +242,18 @@ INSERT INTO `usuarios` (`id`, `codigo`, `create_at`, `email`, `nombres`, `passwo
 (3, '16132216', '2019-11-16', 'daya@', 'dayana medina', '1234', '3134521620', NULL, '16132216', 2, 1, 2),
 (4, '16132243', '2019-11-16', 'luis@', 'luis jaimes', '1234', '318552401', NULL, '16132243', 4, 1, 5),
 (5, '17165201', '2019-11-16', 'elkin@', 'elkin peñaranda', '1234', '3120154151', NULL, '17165201', 1, 2, 1),
-(7, '161322433', '2019-11-16', 'luisalbertoj.tober@gmail.com', 'luis jaimes mercado', '123', '3188729934', '2019-11-16 20:57:45.000000', 'luisalbertoj', NULL, NULL, NULL),
-(9, '1613224333', '2019-11-16', 'luisalbertoj2.tober@gmail.com', 'luis jaimes mercado', '123', '3188729934', '2019-11-16 21:01:54.000000', 'luisalbertoj', 1, 1, 1);
+(9, '1613224333', '2019-11-16', 'luisalbertoj2.tober@gmail.com', 'luis jaimes mercado', '123', '3188729934', '2019-11-16 21:01:54.000000', 'luisalbertoj', 1, 1, 1),
+(11, '1.6132091E7', '2019-11-18', 'perez@mail.com', 'perez juan', '123.0', '3.1887229934E10', '2019-11-18 02:50:38.000000', 'perez', 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `encuestas`
@@ -257,7 +281,8 @@ ALTER TABLE `programas`
 --
 ALTER TABLE `respuestas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FKhpdeptdk3p3fu5l3i57h9bhn7` (`id_pregunta`);
+  ADD UNIQUE KEY `id_pregunta` (`id_pregunta`),
+  ADD KEY `FKhb9egu3cgh3ovf03sk34h3ypy` (`id_contenido`);
 
 --
 -- Indices de la tabla `rol`
@@ -297,16 +322,22 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `encuestas`
 --
 ALTER TABLE `encuestas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `programas`
@@ -318,7 +349,7 @@ ALTER TABLE `programas`
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -342,7 +373,7 @@ ALTER TABLE `servicio_bienestar`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
@@ -365,6 +396,7 @@ ALTER TABLE `preguntas`
 -- Filtros para la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
+  ADD CONSTRAINT `FKhb9egu3cgh3ovf03sk34h3ypy` FOREIGN KEY (`id_contenido`) REFERENCES `contenido` (`id`),
   ADD CONSTRAINT `FKhpdeptdk3p3fu5l3i57h9bhn7` FOREIGN KEY (`id_pregunta`) REFERENCES `preguntas` (`id`);
 
 --

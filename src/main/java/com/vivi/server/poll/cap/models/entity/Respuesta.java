@@ -23,7 +23,9 @@ public class Respuesta implements Serializable {
 	@ManyToOne()
 	@JoinColumn(name = "id_pregunta")
 	private Pregunta pregunta;
-	private String contenido;
+	@ManyToOne()
+	@JoinColumn(name = "id_contenido")
+	private Contenido contenido;
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -56,13 +58,6 @@ public class Respuesta implements Serializable {
 		this.pregunta = pregunta;
 	}
 
-	public String getContenido() {
-		return contenido;
-	}
-
-	public void setContenido(String contenido) {
-		this.contenido = contenido;
-	}
 
 	public Date getCreateAt() {
 		return createAt;
@@ -78,6 +73,14 @@ public class Respuesta implements Serializable {
 
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
+	}
+
+	public Contenido getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(Contenido contenido) {
+		this.contenido = contenido;
 	}
 
 	

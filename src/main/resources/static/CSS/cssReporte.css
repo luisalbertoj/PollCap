@@ -1,1 +1,180 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
 
+ul{
+    list-style: none;
+
+}
+
+#item{
+    float: left;
+    margin: 0 .75rem;
+    
+}
+
+#titulo{
+	margin-top: 3%;
+	margin-left: 35%;
+	margin-bottom: 3%;
+}
+ 
+ 
+#pregunta{
+	
+	margin-bottom:2%;
+	margin-left: 25%;
+}
+
+#total{
+	
+	margin-left: 50%;
+	margin-bottom: 5%;
+}
+nav > ul {
+display: flex;
+  justify-content: center;
+}
+
+a{
+   color: white;
+   padding: 0px 30px;
+   display: block;
+   font-family: Arial;
+   font-size: 20px;
+   text-decoration: none;
+   text-align: center;
+}
+
+#menu{
+    background: #006CB2;
+    padding: 2px 20px 0px 350px;  
+    margin-top: 5; 
+    border: 0;
+    width: 100%;
+    height: 30%;
+}
+
+#pie{
+   background:  #006CB2;
+    padding: 45px 45px 45px 45px; 
+    margin: auto;
+    margin-top: 1px; 
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+
+#top{
+    margin: auto;
+    margin-top: 0%;
+    border: 0;
+    padding: 0px 5px 10px 5px; 
+}
+
+
+h1{
+     margin-left: 770px;
+     color: #006CB2;
+     font-size: 50px;
+     font-family: monospace;
+}
+#img{
+     margin-left: 600px;
+}
+
+@import "lesshat";
+
+/* Mixings &  Variables */
+@barHeight: 20px;
+@borders: #717D95;
+@primary: #59BAC0;
+
+.transition (@property) {
+  -webkit-transition: @property;
+  -moz-transition: @property;
+  -o-transition: @property;
+  transition: @property 
+}
+
+.transform(@degree) {
+  transform:rotate(@degree);
+  -ms-transform:rotate(@degree);
+  -webkit-transform:rotate(@degree); 
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.grafico-barras{
+	margin-bottom: 1em;
+	position: relative;
+	width: 20%;
+  margin: 3em;
+	height: auto;
+	float: right;
+	margin-left: 5%;
+	margin-right: 25%;
+}
+
+.barra-fondo{
+  border-radius: 2px;
+    background: #DAE4EB;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.barras{  
+    background-color: cyan;    
+    .transition(all 1s ease-out);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding-left: .90em;
+    position: relative;
+    z-index: 9999;
+    display: block;
+    height: 40px;  
+    width: 0%; 
+    
+    
+    &:hover {
+      .transition(all 0.5s ease);
+    }
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &:after {
+      position: absolute;
+      content: attr(data-value);
+      display: none;
+      
+      font-size: 12px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;      
+       
+      padding: 0 10px;
+      
+      margin-left: 5px;
+      left: 100%;
+      top: 0;
+    }
+    
+    &:hover:after {
+      display: block;
+    }
+  
+  
+  &-legend {
+    position: absolute;
+    margin-right: 10px;
+    left: -40px ;
+    z-index: 9999;
+  }
+
+}
