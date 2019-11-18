@@ -22,7 +22,7 @@
 </head>
 <body>
 	<div class="alert alert-primary" style="text-align: center; ">
-		<h3>${mensaje}</h3>
+		<h3>${mensaje}    ${mensaje2}</h3>
 		<h3>${usuario.getNombres()} - ${usuario.getRol().getNombre()}</h3>
 	</div>
 	<div id="top">

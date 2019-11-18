@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vivi.server.poll.cap.models.entity.Programa;
+import com.vivi.server.poll.cap.models.entity.Rol;
+import com.vivi.server.poll.cap.models.entity.Semestre;
 import com.vivi.server.poll.cap.models.entity.Usuario;
 import com.vivi.server.poll.cap.models.services.IUsuarioService;
 import com.vivi.server.poll.cap.util.Excel;
@@ -95,9 +98,13 @@ public class ViewController {
 				int r = 0;
 				for (String[] next : usuarios) {
 					Usuario usuarionuevo = new Usuario();
-					try {
+					Programa programa = new Programa();
+					Semestre semestre = new Semestre();
+					Rol rol = new Rol();
+					
+					
 						if (next[0] != null) {
-							usuarionuevo.setId(Long.parseLong(next[0]));
+							usuarionuevo.setId(Long.parseLong(Math.round(Float.parseFloat(next[0]))+ ""));
 						}
 						usuarionuevo.setCodigo(next[1]);
 						usuarionuevo.setEmail(next[2]);
@@ -105,15 +112,19 @@ public class ViewController {
 						usuarionuevo.setPassword(next[4]);
 						usuarionuevo.setTelefono(next[5]);
 						usuarionuevo.setUsername(next[6]);
+						programa.setId(Long.parseLong(Math.round(Float.parseFloat(next[7]))+ ""));
+						usuarionuevo.setPrograma(programa);
+						rol.setId(Long.parseLong(Math.round(Float.parseFloat(next[8]))+ ""));
+						usuarionuevo.setRol(rol);
+						semestre.setId(Long.parseLong(Math.round(Float.parseFloat(next[9]))+ ""));
+						usuarionuevo.setSemestre(semestre);
 						usuarioService.save(usuarionuevo);
-					} catch (Exception e) {
-						view.addAttribute("mensaje", "El elemento llamado: " + next[3]
-								+ " no se pudo registrar revise que los datos sean correctos");
-					}
+					
 				}
 			}
 
 		}
+		view.addAttribute("mensaje2", "Elementos Actualizados y creados");
 		view.addAttribute("usuario", loadUser(id));
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
