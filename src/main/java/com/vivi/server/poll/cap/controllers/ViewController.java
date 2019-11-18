@@ -27,10 +27,12 @@ import com.vivi.server.poll.cap.models.entity.Programa;
 import com.vivi.server.poll.cap.models.entity.Respuesta;
 import com.vivi.server.poll.cap.models.entity.Rol;
 import com.vivi.server.poll.cap.models.entity.Semestre;
+import com.vivi.server.poll.cap.models.entity.ServicioBienestar;
 import com.vivi.server.poll.cap.models.entity.Usuario;
 import com.vivi.server.poll.cap.models.services.IEncuestaService;
 import com.vivi.server.poll.cap.models.services.IPreguntaService;
 import com.vivi.server.poll.cap.models.services.IRespuestaService;
+import com.vivi.server.poll.cap.models.services.IServicioBienestarService;
 import com.vivi.server.poll.cap.models.services.IUsuarioService;
 import com.vivi.server.poll.cap.util.Excel;
 
@@ -45,7 +47,9 @@ public class ViewController {
 	private IPreguntaService preguntaService;
 	@Autowired
 	private IRespuestaService respuestaService;
-
+	@Autowired
+	private IServicioBienestarService servicioBienestarService;
+	
 	@GetMapping("/")
 	public String index(Model view) {
 		String resultado = "luis";
@@ -88,8 +92,8 @@ public class ViewController {
 		}
 		System.out.println(preguntasDelUsuario);
 		view.addAttribute("encuestaSeleccionada", id_encuesta );
-		view.addAttribute("preguntaNum", 0);
 		view.addAttribute("preguntas", preguntasDelUsuario);
+		view.addAttribute("preguntaNum", 0);
 		view.addAttribute("encuestas", encuestasDelUsuario);
 		view.addAttribute("servicioSeleccionado", "block");
 		
@@ -180,6 +184,51 @@ public class ViewController {
 		Usuario user = loadUser(id);
 		view.addAttribute("usuario", user);
 		view = permisos(view, user);
+		
+		List<ServicioBienestar> servicioBienestar = servicioBienestarService.findAll();
+		view.addAttribute("servicioBienestar", servicioBienestar);
+		
+		view.addAttribute("showReporte", "none");
+		return "reporte";
+	}
+	
+	@GetMapping("/reporte/{id}/{id_seleccion}")
+	public String reporte(Model view, @PathVariable Long id, @PathVariable Long id_seleccion) {
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
+		
+		List<ServicioBienestar> servicioBienestar = servicioBienestarService.findAll();
+		view.addAttribute("servicioBienestar", servicioBienestar);
+		
+		List<Pregunta> preguntas = preguntaService.findAll();
+		ArrayList<Pregunta> preguntasDeSeleccion = new ArrayList<Pregunta>();
+		for(Pregunta preguntaTem: preguntas) {
+			if(preguntaTem.getEncuesta().getId().equals(id_seleccion)) preguntasDeSeleccion.add(preguntaTem);
+		}
+		
+		List<Respuesta> respuestas = respuestaService.findAll();
+		ArrayList<ArrayList<Respuesta>> respuestasDeSeleccion = new ArrayList<ArrayList<Respuesta>>();
+		ArrayList<Respuesta> respuestasTemporal = new ArrayList<Respuesta>();
+		for(Respuesta respuestaTem: respuestas) {
+			for(Pregunta preguntaTem: preguntasDeSeleccion) {
+				if(respuestaTem.getPregunta().getId().equals(preguntaTem.getId())) {
+					System.out.println("id pregunta "+ preguntaTem.getId());
+					System.out.println("id respuesta "+ respuestaTem.getPregunta().getId());
+					respuestasTemporal.add(respuestaTem);
+				}
+			}
+			respuestasDeSeleccion.add(respuestasTemporal);
+		}
+		if( respuestasDeSeleccion.size() == 0) {
+			view.addAttribute("mensaje2", "El elemento seleccionado no ha sido respondido aun");
+			view.addAttribute("showReporte", "none");
+		} else {
+			view.addAttribute("showReporte", "block");
+		}
+		view.addAttribute("encuestaSeleccionada", id_seleccion );
+		view.addAttribute("preguntas", preguntasDeSeleccion);
+		view.addAttribute("respuestas", respuestasDeSeleccion);
 		return "reporte";
 	}
 

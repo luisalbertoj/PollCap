@@ -19,8 +19,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div class="alert alert-primary"
-		style="text-align: center;">
+	<div class="alert alert-primary" style="text-align: center;">
 		<h4>${usuario.getNombres()}-${usuario.getRol().getNombre()}</h4>
 	</div>
 	<div id="top">
@@ -58,15 +57,18 @@
 				style="text-align: center; display: ${mensajeGuardado}">
 				<h4>${mensaje}${mensaje2}</h4>
 			</div>
-			<div class="btn-group" style="color: white;">
-				<button type="button" class="btn btn-warning btn-lg dropdown-toggle"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Selecciona la encuesta que quieres completar</button>
-				<div class="dropdown-menu">
-					<c:forEach items="${encuestas}" var="encuestaTem">
-						<a class="dropdown-item"
-							href="/encuesta/${ usuario.getId()}/${ encuestaTem.getServicioBienestar().getId() }">${ encuestaTem.getServicioBienestar().getNombre() }</a>
-					</c:forEach>
+			<div class="drop-servicio">
+				<div class="btn-group" style="color: white;">
+					<button type="button"
+						class="btn btn-warning btn-lg dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Selecciona la encuesta que quieres completar</button>
+					<div class="dropdown-menu">
+						<c:forEach items="${encuestas}" var="encuestaTem">
+							<a class="dropdown-item"
+								href="/encuesta/${ usuario.getId()}/${ encuestaTem.getServicioBienestar().getId() }">${ encuestaTem.getServicioBienestar().getNombre() }</a>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 			<br> <br>
