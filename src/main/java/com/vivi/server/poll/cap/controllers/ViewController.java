@@ -93,7 +93,11 @@ public class ViewController {
 		        for (String[] next : usuarios) {
 		        	Usuario usuarionuevo = new Usuario();
 		            System.out.print("Array Row: " + r++ + " -> ");
+		            if(next[0] != null) {
+		            	usuarionuevo.setId(Long.parseLong(next[0]));
+		            }
 		            for (int c = 0; c < next.length; c++) {
+		            	
 		                System.out.print("[Column " + c + ": " + next[c] + "] ");
 		                
 		            }
