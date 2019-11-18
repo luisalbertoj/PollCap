@@ -26,16 +26,18 @@
         <div id="menu">   
             <nav class="nav">
              <ul>
-				<li id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img
+				<li style="color: white; display: ${ menuIncio }" id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img
 						src="http://localhost:8089/IMG/inicio.png" align="left">
 				</a></li>
-				<li id="item"><a href="/usuario/${ usuario.getId()}">Usuario<img
+				<li style="color: white; display: ${ menuUsuario }" id="item"><a href="/usuario/${ usuario.getId()}">Usuario<img
 						src="http://localhost:8089/IMG/user.png" align="left">
 				</a></li>
-				<li id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
+				<li style="color: white; display: ${ menuEncuesta }" id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
 						src="http://localhost:8089/IMG/encuesta.png" align="left"></a></li>
-				<li id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
+				<li style="color: white; display: ${ menuReporte }" id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
 						src="http://localhost:8089/IMG/reporte.png" align="left"></a></li>
+				<li style="color: white;" id="item"><a href="http://localhost:8089/">Salir<img
+						align="left"></a></li>
 			</ul>    
           </nav>
         </div>

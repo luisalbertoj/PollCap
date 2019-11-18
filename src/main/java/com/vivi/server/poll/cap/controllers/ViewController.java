@@ -55,7 +55,9 @@ public class ViewController {
 
 	@GetMapping("/encuesta/{id}")
 	public String encuesta(Model view,@PathVariable Long id) {
-		view.addAttribute("usuario", loadUser(id));
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
 		List<Encuesta> encuestas = encuestaService.findAll();
 		ArrayList<Encuesta> encuestasDelUsuario = new ArrayList<Encuesta>();
 		for(Encuesta encuestaTem: encuestas) {
@@ -70,7 +72,9 @@ public class ViewController {
 	
 	@GetMapping("/encuesta/{id}/{id_encuesta}")
 	public String encuestaLlenar(Model view,@PathVariable Long id, @PathVariable Long id_encuesta) {
-		view.addAttribute("usuario", loadUser(id));
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
 		List<Encuesta> encuestas = encuestaService.findAll();
 		ArrayList<Encuesta> encuestasDelUsuario = new ArrayList<Encuesta>();
 		for(Encuesta encuestaTem: encuestas) {
@@ -94,7 +98,9 @@ public class ViewController {
 	
 	@PostMapping("/encuesta/{id}/{id_encuesta}/{num_pregunta}")
 	public String encuestaGuardar(Model view,@PathVariable Long id,@PathVariable int num_pregunta, @PathVariable Long id_encuesta,Contenido formModel) {
-		view.addAttribute("usuario", loadUser(id));
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
 		List<Encuesta> encuestas = encuestaService.findAll();
 		ArrayList<Encuesta> encuestasDelUsuario = new ArrayList<Encuesta>();
 		for(Encuesta encuestaTem: encuestas) {
@@ -128,7 +134,7 @@ public class ViewController {
 		try {
 			respuestaService.save(respuesta);
 		} catch (Exception e) {
-			view.addAttribute("mensaje2", "- !Esta encuesta ya ha sido respondida Selecciona otra encuesta");
+			view.addAttribute("mensaje2", "- !Esta Pregunta ya ha sido respondida la nueva respuesta no sera guardada");
 		}
 		
 		num_pregunta ++;
@@ -137,19 +143,21 @@ public class ViewController {
 		view.addAttribute("preguntaNum", num_pregunta);
 		view.addAttribute("encuestas", encuestasDelUsuario);
 		view.addAttribute("mensajeGuardado", "block");
-		view.addAttribute("mensaje", "Respuestas Guardadas");
+		view.addAttribute("mensaje", "Pregunta: " + num_pregunta);
 		if(preguntasDelUsuario.size() == (num_pregunta)) {
 			view.addAttribute("preguntaNum", 0);
 			view.addAttribute("servicioSeleccionado", "none");
+			view.addAttribute("mensaje", "Encuesta finalizada!");
 		}	
 		return "encuesta";
 	}
 	@GetMapping("/inicio/{id}")
 	public String inicioGet(Model view, @PathVariable Long id) {
-		view.addAttribute("usuario", loadUser(id));
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
 		return "inicio";
 	}
-
 	@PostMapping("/inicio")
 	public String inicio(Model view, Usuario usuario) {
 		if (usuario.getUsername().isEmpty() || usuario.getPassword().isEmpty()) {
@@ -164,25 +172,32 @@ public class ViewController {
 			return "index";
 		}
 		view.addAttribute("usuario", usuarioLogueado);
+		view = permisos(view, usuarioLogueado);
 		return "inicio";
 	}
-
 	@GetMapping("/reporte/{id}")
 	public String reporte(Model view, @PathVariable Long id) {
-		view.addAttribute("usuario", loadUser(id));
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
 		return "reporte";
 	}
 
 	@GetMapping("/usuario/{id}")
 	public String usuario(Model view, @PathVariable Long id) {
-		view.addAttribute("usuario", loadUser(id));
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
 	}
 
 	@PostMapping("/usuario/{id}")
 	public String uploadUsuarios(Model view, @PathVariable Long id, @RequestParam("archivo") MultipartFile archivo) {
-
+		Usuario user = loadUser(id);
+		view.addAttribute("usuario", user);
+		view = permisos(view, user);
+		
 		if (!archivo.isEmpty()) {
 			String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
 			Path rutaArchivo = Paths.get("multimedia").resolve(nombreArchivo).toAbsolutePath();
@@ -231,7 +246,6 @@ public class ViewController {
 
 		}
 		view.addAttribute("mensaje2", "Elementos Actualizados y creados");
-		view.addAttribute("usuario", loadUser(id));
 		view.addAttribute("usuarios", usuarioService.findAll());
 		return "usuario";
 	}
@@ -239,5 +253,20 @@ public class ViewController {
 	public Usuario loadUser(Long id) {
 		return usuarioService.findById(id);
 
+	}
+	public Model permisos(Model view, Usuario usuario) {
+		
+		if(usuario.getRol().getNombre().equals("estudiante")) {
+			view.addAttribute("menuIncio", "block");
+			view.addAttribute("menuUsuario", "none");
+			view.addAttribute("menuEncuesta", "block");
+			view.addAttribute("menuReporte", "none");
+		} else if(usuario.getRol().getNombre().equals("coordinador")) {
+			view.addAttribute("menuIncio", "none");
+			view.addAttribute("menuUsuario", "block");
+			view.addAttribute("menuEncuesta", "none");
+			view.addAttribute("menuReporte", "block");
+		}
+		return view;
 	}
 }

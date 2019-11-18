@@ -19,6 +19,10 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<div class="alert alert-primary"
+		style="text-align: center;">
+		<h4>${usuario.getNombres()}-${usuario.getRol().getNombre()}</h4>
+	</div>
 	<div id="top">
 		<img src="http://localhost:8089/IMG/logoUDES.png" align="left"
 			id="img">
@@ -27,16 +31,22 @@
 	<div id="menu">
 		<nav class="nav">
 			<ul>
-				<li id="item"><a href="/inicio/${ usuario.getId()}">Inicio<img
+				<li style="color: white; display: ${ menuIncio }" id="item"><a
+					href="/inicio/${ usuario.getId()}">Inicio<img
 						src="http://localhost:8089/IMG/inicio.png" align="left">
 				</a></li>
-				<li id="item"><a href="/usuario/${ usuario.getId()}">Usuario<img
+				<li style="color: white; display: ${ menuUsuario }" id="item"><a
+					href="/usuario/${ usuario.getId()}">Usuario<img
 						src="http://localhost:8089/IMG/user.png" align="left">
 				</a></li>
-				<li id="item"><a href="/encuesta/${ usuario.getId()}">Encuesta<img
+				<li style="color: white; display: ${ menuEncuesta }" id="item"><a
+					href="/encuesta/${ usuario.getId()}">Encuesta<img
 						src="http://localhost:8089/IMG/encuesta.png" align="left"></a></li>
-				<li id="item"><a href="/reporte/${ usuario.getId()}">Reporte<img
+				<li style="color: white; display: ${ menuReporte }" id="item"><a
+					href="/reporte/${ usuario.getId()}">Reporte<img
 						src="http://localhost:8089/IMG/reporte.png" align="left"></a></li>
+				<li style="color: white;" id="item"><a
+					href="http://localhost:8089/">Salir<img align="left"></a></li>
 			</ul>
 		</nav>
 	</div>
@@ -44,9 +54,9 @@
 	<br>
 	<div class="container-fluid">
 		<div class="container">
-			<div class="alert alert-primary" style="text-align: center; display: ${mensajeGuardado}">
+			<div class="alert alert-primary"
+				style="text-align: center; display: ${mensajeGuardado}">
 				<h4>${mensaje}${mensaje2}</h4>
-				<h4>${usuario.getNombres()}- ${usuario.getRol().getNombre()}</h4>
 			</div>
 			<div class="btn-group" style="color: white;">
 				<button type="button" class="btn btn-warning btn-lg dropdown-toggle"
@@ -60,39 +70,47 @@
 				</div>
 			</div>
 			<br> <br>
-			
+
 			<div style="display: ${servicioSeleccionado}">
-				<form action="http://localhost:8089/encuesta/${ usuario.getId()}/${ encuestaSeleccionada }/${ preguntaNum}" method="post">
+				<form
+					action="http://localhost:8089/encuesta/${ usuario.getId()}/${ encuestaSeleccionada }/${ preguntaNum}"
+					method="post">
 
 
-					
-						<div class="card">
-							<div class="card-header">Pregunta</div>
-							<div class="card-body">
-								<h5 class="card-title">${ preguntas.get(preguntaNum).getContenido() }</h5>
-								<p class="card-text">¿Tu opinion?</p>
 
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="deacuerdo" id="exampleRadios1" value="${ preguntas.get(preguntaNum).getId() }">
-									<label class="form-check-label" for="exampleRadios-${ preguntas.get(preguntaNum).getId() }">
-										de acuerdo </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="indiferente" id="exampleRadios2" value="${ preguntas.get(preguntaNum).getId() }">
-									<label class="form-check-label" for="exampleRadios-${ preguntas.get(preguntaNum).getId() }">
-										indiferente </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="desacuerdo" id="exampleRadios3" value="${ preguntas.get(preguntaNum).getId() }">
-									<label class="form-check-label" for="exampleRadios-${ preguntas.get(preguntaNum).getId() }">
-										desacuerdo </label>
-								</div>
+					<div class="card">
+						<div class="card-header">Pregunta</div>
+						<div class="card-body">
+							<h5 class="card-title">${ preguntas.get(preguntaNum).getContenido() }</h5>
+							<p class="card-text">¿Tu opinion?</p>
+
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="deacuerdo"
+									id="exampleRadios1"
+									value="${ preguntas.get(preguntaNum).getId() }"> <label
+									class="form-check-label"
+									for="exampleRadios-${ preguntas.get(preguntaNum).getId() }">
+									de acuerdo </label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="indiferente"
+									id="exampleRadios2"
+									value="${ preguntas.get(preguntaNum).getId() }"> <label
+									class="form-check-label"
+									for="exampleRadios-${ preguntas.get(preguntaNum).getId() }">
+									indiferente </label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="desacuerdo"
+									id="exampleRadios3"
+									value="${ preguntas.get(preguntaNum).getId() }"> <label
+									class="form-check-label"
+									for="exampleRadios-${ preguntas.get(preguntaNum).getId() }">
+									desacuerdo </label>
 							</div>
 						</div>
-					
+					</div>
+
 					<button type="submit" class="btn btn-primary">Guardar
 						Respuestas</button>
 				</form>
