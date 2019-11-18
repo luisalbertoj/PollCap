@@ -88,12 +88,12 @@
 
 				<div style="display: ${ showReporte }">
 					<h1 id="titulo">REPORTE DE LAS ENCUESTAS</h1>
-					<c:forEach items="${preguntas}" var="preguntaTem" varStatus="loop">
+					<c:forEach items="${preguntas}" var="preguntaTem" varStatus="loop1">
 						<div>
 							<section class="grafico-barras">
 								<ul>
 									<span class="barra-fondo">
-										<li class="barras" data-value="90">De_acuerdo</li>
+										<li class="barras" data-value="100">De_acuerdo</li>
 									</span>
 									<span class="barra-fondo">
 										<li class="barras" data-value="2${ loop.index }">Indiferente</li>
@@ -105,13 +105,22 @@
 								</ul>
 							</section>
 							<div>
+							<div style="display: none;">
+							${ cantidadRespuestasDeacuerdo = 0 }
+							${ cantidadRespuestasDesacuerdo = 0 }
+							${ cantidadRespuestasIndiferente = 0 }
+							<c:forEach items="${respuestas.get(loop1.index)}" var="respuestasTem" varStatus="loop">
+								${ cantidadRespuestasDeacuerdo = cantidadRespuestasDeacuerdo + respuestasTem.getContenido().getDeacuerdo() }								 
+								${ cantidadRespuestasDesacuerdo = cantidadRespuestasDesacuerdo + respuestasTem.getContenido().getDesacuerdo() }
+								${ cantidadRespuestasIndiferente = cantidadRespuestasIndiferente + respuestasTem.getContenido().getIndiferente() }
+							</c:forEach>
+							</div>
 								<h4 id="pregunta">PREGUNTA: ${ preguntaTem.getContenido() }</h4>
-								<h6 id="pregunta">De acuerdo:</h6>
-								<h6 id="pregunta">Indiferente:</h6>
-								<h6 id="pregunta">Desacuerdo:</h6>
+								<h6 id="pregunta">De acuerdo: ${ cantidadRespuestasDeacuerdo }</h6>
+								<h6 id="pregunta">Indiferente: ${ cantidadRespuestasDesacuerdo  }</h6>
+								<h6 id="pregunta">Desacuerdo: ${ cantidadRespuestasIndiferente  }</h6>
 								
-								<h5 id="total">TOTAL: ${ respuestas.size() }</h5>
-								<h5 id="total">TOTAL: ${ respuestas.get(loop.index).size() }</h5>
+								<h5 id="total">TOTAL: ${ respuestas.get(loop1.index).size() }</h5>
 							</div>
 						</div>
 					</c:forEach>

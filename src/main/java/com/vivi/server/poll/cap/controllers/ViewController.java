@@ -152,7 +152,10 @@ public class ViewController {
 			view.addAttribute("preguntaNum", 0);
 			view.addAttribute("servicioSeleccionado", "none");
 			view.addAttribute("mensaje", "Encuesta finalizada!");
-		}	
+		}
+		view.addAttribute("cantidadRespuestasDeacuerdo", 0);
+		view.addAttribute("cantidadRespuestasDesacuerdo", 0);
+		view.addAttribute("cantidadRespuestasIndiferente", 0);
 		return "encuesta";
 	}
 	@GetMapping("/inicio/{id}")
@@ -214,9 +217,6 @@ public class ViewController {
 			respuestasTemporal = new ArrayList<Respuesta>();
 			for(Pregunta preguntaTem: preguntasDeSeleccion) {
 				if(respuestaTem.getPregunta().getId().equals(preguntaTem.getId())) {
-					System.out.println("id pregunta "+ preguntaTem.getId());
-					System.out.println("id respuesta "+ respuestaTem.getId());
-					System.out.println("id respuesta y id pregunta "+ respuestaTem.getPregunta().getId());
 					respuestasTemporal.add(respuestaTem);
 				}
 			}
