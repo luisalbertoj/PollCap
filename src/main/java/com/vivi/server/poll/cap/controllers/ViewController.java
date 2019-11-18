@@ -228,6 +228,7 @@ public class ViewController {
 		} else {
 			view.addAttribute("showReporte", "block");
 		}
+		view.addAttribute("mensaje", servicioBienestarService.findById(id_seleccion).getNombre());
 		view.addAttribute("encuestaSeleccionada", id_seleccion );
 		view.addAttribute("preguntas", preguntasDeSeleccion);
 		view.addAttribute("respuestas", respuestasDeSeleccion);
