@@ -102,7 +102,7 @@ public class ViewController {
 					Semestre semestre = new Semestre();
 					Rol rol = new Rol();
 					
-					
+					try {
 						if (next[0] != null) {
 							usuarionuevo.setId(Long.parseLong(Math.round(Float.parseFloat(next[0]))+ ""));
 						}
@@ -119,7 +119,10 @@ public class ViewController {
 						semestre.setId(Long.parseLong(Math.round(Float.parseFloat(next[9]))+ ""));
 						usuarionuevo.setSemestre(semestre);
 						usuarioService.save(usuarionuevo);
-					
+					} catch (Exception e) {
+						view.addAttribute("mensaje", "El elemento llamado: " + next[3]
+								+ " no se pudo registrar revise que los datos sean correctos o que su codigo o correo ya esten registrados");
+					}
 				}
 			}
 
